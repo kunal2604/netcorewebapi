@@ -11,7 +11,7 @@ namespace netcorewebapi.Controllers
         private static List<Character> characters = new List<Character>()
         {
             new Character(),
-            new Character{ Name = "Trisha", Inteligence = 20, Class = RpgClass.Mage }
+            new Character{ Name = "Trisha", Id = 1, Inteligence = 20, Class = RpgClass.Mage }
         };
 
         [HttpGet]
@@ -26,6 +26,12 @@ namespace netcorewebapi.Controllers
         {
             return Ok(knight);
         }
+
+        [HttpGet("GetCharacterById/{id}")]
+        public ActionResult<Character> GetCharacterById(int id)
+        {
+            return Ok(characters.FirstOrDefault(c => c.Id == id));
+        } 
 
         // Combine route in the same line
         [HttpGet("GetCharacters")] 
