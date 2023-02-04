@@ -24,7 +24,7 @@ namespace netcorewebapi.Controllers
         [Route("Get")]
         public IActionResult Get2()
         {
-            return Ok(knight);
+            return Ok(characters[2]);
         }
 
         [HttpGet("GetCharacterById/{id}")]
@@ -37,6 +37,13 @@ namespace netcorewebapi.Controllers
         [HttpGet("GetCharacters")] 
         public ActionResult<List<Character>> GetCharacters()
         {
+            return Ok(characters);
+        }
+
+        [HttpPost("AddCharacter")]
+        public ActionResult<List<Character>> AddCharacter(Character newCharacter)
+        {
+            characters.Add(newCharacter);
             return Ok(characters);
         }
     }
