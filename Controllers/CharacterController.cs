@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-
+using netcorewebapi.Services.CharacterService;
 
 namespace netcorewebapi.Controllers
 {
@@ -7,44 +7,43 @@ namespace netcorewebapi.Controllers
     [Route("api/[controller]")]
     public class CharacterController : ControllerBase
     {
-        private static Character knight = new Character();
-        private static List<Character> characters = new List<Character>()
-        {
-            new Character(),
-            new Character{ Name = "Trisha", Id = 1, Inteligence = 20, Class = RpgClass.Mage }
-        };
+        ICharacterService _characterService;
 
-        [HttpGet]
-        public IActionResult Get()
+        public CharacterController(ICharacterService characterService)
         {
-            return Ok(knight);
+            _characterService = characterService;
+        }
+        
+        [HttpGet]
+        public IActionResult GetFirstCharacter()
+        {
+            return Ok(_characterService.GetCharacterById(1));
         }
 
         [HttpGet]
-        [Route("Get")]
-        public IActionResult Get2()
+        [Route("GetSecondCharacter")]
+        public IActionResult GetSecondCharacter()
         {
-            return Ok(characters[2]);
+            return Ok(_characterService.GetCharacterById(2));
         }
 
         [HttpGet("GetCharacterById/{id}")]
         public ActionResult<Character> GetCharacterById(int id)
         {
-            return Ok(characters.FirstOrDefault(c => c.Id == id));
+            return Ok(_characterService.GetCharacterById(id));
         } 
 
         // Combine route in the same line
-        [HttpGet("GetCharacters")] 
-        public ActionResult<List<Character>> GetCharacters()
+        [HttpGet("GetAllCharacters")] 
+        public ActionResult<List<Character>> GetAllCharacters()
         {
-            return Ok(characters);
+            return Ok(_characterService.GetAllCharacters());   
         }
 
         [HttpPost("AddCharacter")]
         public ActionResult<List<Character>> AddCharacter(Character newCharacter)
         {
-            characters.Add(newCharacter);
-            return Ok(characters);
+            return Ok(_characterService.AddCharacter(newCharacter));
         }
     }
 }
