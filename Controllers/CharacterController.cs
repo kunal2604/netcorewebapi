@@ -15,33 +15,33 @@ namespace netcorewebapi.Controllers
         }
         
         [HttpGet]
-        public IActionResult GetFirstCharacter()
+        public async Task<IActionResult> GetFirstCharacter()
         {
-            return Ok(_characterService.GetCharacterById(1));
+            return Ok(await _characterService.GetCharacterById(1));
         }
 
         [HttpGet]
         [Route("GetSecondCharacter")]
-        public IActionResult GetSecondCharacter()
+        public async Task<IActionResult> GetSecondCharacter()
         {
-            return Ok(_characterService.GetCharacterById(2));
+            return Ok(await _characterService.GetCharacterById(2));
         }
 
         [HttpGet("GetCharacterById/{id}")]
-        public ActionResult<Character> GetCharacterById(int id)
+        public async Task<ActionResult<Character>> GetCharacterById(int id)
         {
-            return Ok(_characterService.GetCharacterById(id));
+            return Ok(await _characterService.GetCharacterById(id));
         } 
 
         // Combine route in the same line
         [HttpGet("GetAllCharacters")] 
-        public ActionResult<List<Character>> GetAllCharacters()
+        public async Task<ActionResult<List<Character>>> GetAllCharacters()
         {
-            return Ok(_characterService.GetAllCharacters());   
+            return Ok(await _characterService.GetAllCharacters());   
         }
 
         [HttpPost("AddCharacter")]
-        public ActionResult<List<Character>> AddCharacter(Character newCharacter)
+        public async Task<ActionResult<List<Character>>> AddCharacter(Character newCharacter)
         {
             return Ok(_characterService.AddCharacter(newCharacter));
         }
