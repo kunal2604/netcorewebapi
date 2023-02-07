@@ -16,7 +16,9 @@ namespace netcorewebapi.Services.CharacterService
         public async Task<ServiceResponse<List<GetCharacterResponseDto>>> AddCharacter(AddCharacterRequestDto newCharacter)
         {
             var serviceResponse = new ServiceResponse<List<GetCharacterResponseDto>>();
-            characters.Add(_mapper.Map<Character>(newCharacter));
+            var character = _mapper.Map<Character>(newCharacter);
+            character.Id = characters.Max(c => c.Id) + 1;
+            characters.Add(character);
             serviceResponse.Data = characters.Select(c => _mapper.Map<GetCharacterResponseDto>(c)).ToList();
             return serviceResponse;
         }
