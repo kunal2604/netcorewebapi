@@ -24,13 +24,23 @@ namespace netcorewebapi.Controllers
         [Route("GetSecondCharacter")]
         public async Task<ActionResult<ServiceResponse<GetCharacterResponseDto>>> GetSecondCharacter()
         {
-            return Ok(await _characterService.GetCharacterById(2));
+            var response = await _characterService.GetCharacterById(2);
+            if(response.Data is null)
+            {
+                return NotFound(response);
+            }
+            return Ok(response);
         }
 
         [HttpGet("GetCharacterById/{id}")]
         public async Task<ActionResult<ServiceResponse<GetCharacterResponseDto>>> GetCharacterById(int id)
         {
-            return Ok(await _characterService.GetCharacterById(id));
+            var response = await _characterService.GetCharacterById(id);
+            if(response.Data is null)
+            {
+                return NotFound(response);
+            }
+            return Ok(response);
         } 
 
         // Combine route in the same line
@@ -49,6 +59,11 @@ namespace netcorewebapi.Controllers
         [HttpPut("UpdateCharacter")]
         public async Task<ActionResult<ServiceResponse<GetCharacterResponseDto>>> UpdateCharacter(UpdateCharacterRequestDto updatedCharacter)
         {
+            var response = await _characterService.UpdateCharacter(updatedCharacter);
+            if(response.Data is null)
+            {
+                return NotFound(response);
+            }
             return Ok(await _characterService.UpdateCharacter(updatedCharacter));
         }
     }
