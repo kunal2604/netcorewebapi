@@ -8,26 +8,31 @@ namespace netcorewebapi.Services.CharacterService
             new Character{ Name = "Trisha", Id = 1, Inteligence = 20, Class = RpgClass.Mage }
         };
 
-        public async Task<ServiceResponse<List<Character>>> AddCharacter(Character newCharacter)
+        private readonly IMapper _mapper;
+        public CharacterService(IMapper mapper)
         {
-            var serviceResponse = new ServiceResponse<List<Character>>();
-            characters.Add(newCharacter);
-            serviceResponse.Data = characters;
+            _mapper = mapper;
+        }
+        public async Task<ServiceResponse<List<GetCharacterResponseDto>>> AddCharacter(AddCharacterRequestDto newCharacter)
+        {
+            var serviceResponse = new ServiceResponse<List<GetCharacterResponseDto>>();
+            characters.Add(_mapper.Map<Character>(newCharacter));
+            serviceResponse.Data = characters.Select(c => _mapper.Map<GetCharacterResponseDto>(c)).ToList();
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<List<Character>>> GetAllCharacters()
+        public async Task<ServiceResponse<List<GetCharacterResponseDto>>> GetAllCharacters()
         {
-            var serviceResponse = new ServiceResponse<List<Character>>();
-            serviceResponse.Data = characters;
+            var serviceResponse = new ServiceResponse<List<GetCharacterResponseDto>>();
+            serviceResponse.Data = characters.Select(c => _mapper.Map<GetCharacterResponseDto>(c)).ToList();
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<Character>> GetCharacterById(int id)
+        public async Task<ServiceResponse<GetCharacterResponseDto>> GetCharacterById(int id)
         {
             var character = characters.FirstOrDefault(c => c.Id == id);
-            var serviceResponse = new ServiceResponse<Character>();
-            serviceResponse.Data = character;
+            var serviceResponse = new ServiceResponse<GetCharacterResponseDto>();
+            serviceResponse.Data = _mapper.Map<GetCharacterResponseDto>(character);
             return serviceResponse;
         }
     }
