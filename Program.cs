@@ -37,4 +37,3 @@ void RegisterInterfaces()
 {
     builder.Services.AddScoped<ICharacterService, CharacterService>();
 }
-
