@@ -43,7 +43,7 @@ namespace netcorewebapi.Controllers
         [HttpPost("AddCharacter")]
         public async Task<ActionResult<ServiceResponse<List<GetCharacterResponseDto>>>> AddCharacter(AddCharacterRequestDto newCharacter)
         {
-            return Ok(_characterService.AddCharacter(newCharacter));
+            return Ok(await _characterService.AddCharacter(newCharacter));
         }
     }
 }
