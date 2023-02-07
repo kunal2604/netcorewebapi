@@ -50,11 +50,7 @@ namespace netcorewebapi.Services.CharacterService
                 throw new Exception($"Character with Id '{updatedCharacter.Id}' not found !!");
             }
             
-            character.Name = updatedCharacter.Name;
-            character.HitPoints = updatedCharacter.HitPoints;
-            character.Defense = updatedCharacter.Defense;
-            character.Strength = updatedCharacter.Strength;
-            character.Class = updatedCharacter.Class;
+            _mapper.Map(updatedCharacter, character);
 
             serviceResponse.Data = _mapper.Map<GetCharacterResponseDto>(character);
             
