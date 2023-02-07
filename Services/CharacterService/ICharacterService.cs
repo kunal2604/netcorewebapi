@@ -7,5 +7,7 @@ namespace netcorewebapi.Services.CharacterService
         Task<ServiceResponse<GetCharacterResponseDto>> GetCharacterById(int id);
 
         Task<ServiceResponse<List<GetCharacterResponseDto>>> AddCharacter(AddCharacterRequestDto newCharacter);
+
+        Task<ServiceResponse<GetCharacterResponseDto>> UpdateCharacter(UpdateCharacterRequestDto Character);
     }
 }

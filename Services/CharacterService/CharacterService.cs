@@ -13,15 +13,6 @@ namespace netcorewebapi.Services.CharacterService
         {
             _mapper = mapper;
         }
-        public async Task<ServiceResponse<List<GetCharacterResponseDto>>> AddCharacter(AddCharacterRequestDto newCharacter)
-        {
-            var serviceResponse = new ServiceResponse<List<GetCharacterResponseDto>>();
-            var character = _mapper.Map<Character>(newCharacter);
-            character.Id = characters.Max(c => c.Id) + 1;
-            characters.Add(character);
-            serviceResponse.Data = characters.Select(c => _mapper.Map<GetCharacterResponseDto>(c)).ToList();
-            return serviceResponse;
-        }
 
         public async Task<ServiceResponse<List<GetCharacterResponseDto>>> GetAllCharacters()
         {
@@ -36,6 +27,45 @@ namespace netcorewebapi.Services.CharacterService
             var serviceResponse = new ServiceResponse<GetCharacterResponseDto>();
             serviceResponse.Data = _mapper.Map<GetCharacterResponseDto>(character);
             return serviceResponse;
+        }
+
+        public async Task<ServiceResponse<List<GetCharacterResponseDto>>> AddCharacter(AddCharacterRequestDto newCharacter)
+        {
+            var serviceResponse = new ServiceResponse<List<GetCharacterResponseDto>>();
+            var character = _mapper.Map<Character>(newCharacter);
+            character.Id = characters.Max(c => c.Id) + 1;
+            characters.Add(character);
+            serviceResponse.Data = characters.Select(c => _mapper.Map<GetCharacterResponseDto>(c)).ToList();
+            return serviceResponse;
+        }
+
+        public async Task<ServiceResponse<GetCharacterResponseDto>> UpdateCharacter(UpdateCharacterRequestDto updatedCharacter)
+        {
+            var serviceResponse = new ServiceResponse<GetCharacterResponseDto>();
+            try
+            {
+            var character = characters.FirstOrDefault(c => c.Id == updatedCharacter.Id);
+            if(character is null)
+            {
+                throw new Exception($"Character with Id '{updatedCharacter.Id}' not found !!");
+            }
+            
+            character.Name = updatedCharacter.Name;
+            character.HitPoints = updatedCharacter.HitPoints;
+            character.Defense = updatedCharacter.Defense;
+            character.Strength = updatedCharacter.Strength;
+            character.Class = updatedCharacter.Class;
+
+            serviceResponse.Data = _mapper.Map<GetCharacterResponseDto>(character);
+            
+            }
+            catch(Exception ex)
+            {
+                serviceResponse.Success = false;
+                serviceResponse.Message = ex.Message;
+            }
+            return serviceResponse;
+            
         }
     }
 }
