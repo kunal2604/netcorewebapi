@@ -45,5 +45,11 @@ namespace netcorewebapi.Controllers
         {
             return Ok(await _characterService.AddCharacter(newCharacter));
         }
+
+        [HttpPut("UpdateCharacter")]
+        public async Task<ActionResult<ServiceResponse<GetCharacterResponseDto>>> UpdateCharacter(UpdateCharacterRequestDto updatedCharacter)
+        {
+            return Ok(await _characterService.UpdateCharacter(updatedCharacter));
+        }
     }
 }
