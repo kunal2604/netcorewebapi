@@ -66,5 +66,16 @@ namespace netcorewebapi.Controllers
             }
             return Ok(await _characterService.UpdateCharacter(updatedCharacter));
         }
+
+        [HttpDelete]
+        public async Task<ActionResult<ServiceResponse<List<GetCharacterResponseDto>>>> DeleteCharacter(int id)
+        {
+            var response = await _characterService.DeleteCharacterById(id);
+            if(response.Data is null)
+            {
+                return NotFound(response);
+            }
+            return Ok(response);
+        }
     }
 }

@@ -63,5 +63,26 @@ namespace netcorewebapi.Services.CharacterService
             return serviceResponse;
             
         }
+
+        public async Task<ServiceResponse<List<GetCharacterResponseDto>>> DeleteCharacterById(int id)
+        {
+            var serviceResponse = new ServiceResponse<List<GetCharacterResponseDto>>();
+            try
+            {
+                var character = characters.FirstOrDefault(c =>c.Id == id);
+                if(character is null)
+                {
+                    throw new Exception($"Character with id '{id}' was not found !!");
+                }
+                characters.Remove(character);
+                serviceResponse.Data = characters.Select(c => _mapper.Map<GetCharacterResponseDto>(c)).ToList();
+            }
+            catch(Exception ex)
+            {
+                serviceResponse.Success = false;
+                serviceResponse.Message = ex.Message;
+            }
+            return serviceResponse;
+        }
     }
 }
