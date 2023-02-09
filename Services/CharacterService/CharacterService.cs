@@ -2,12 +2,6 @@ namespace netcorewebapi.Services.CharacterService
 {
     public class CharacterService : ICharacterService
     {
-        private static List<Character> characters = new List<Character>()
-        {
-            new Character(),
-            new Character{ Name = "Trisha", Id = 1, Inteligence = 20, Class = RpgClass.Mage }
-        };
-
         private readonly IMapper _mapper;
         private readonly DataContext _context;
 
