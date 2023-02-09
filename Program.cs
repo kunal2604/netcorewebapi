@@ -1,6 +1,3 @@
-// Command to migrate: dotnet ef migrations add InitialCreate
-// Command to update DB: dotnet ef database update
-
 global using netcorewebapi.Models;
 global using netcorewebapi.Services.CharacterService;
 global using netcorewebapi.Dtos.Character;
