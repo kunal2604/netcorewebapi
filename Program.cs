@@ -4,6 +4,8 @@ global using netcorewebapi.Dtos.Character;
 global using AutoMapper;
 global using Microsoft.EntityFrameworkCore;
 global using netcorewebapi.Data;
+using netcorewebapi.Data.DAO.Interface;
+using netcorewebapi.Data.DAO;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -45,4 +47,5 @@ void ConfigureServices()
 void RegisterInterfaces()
 {
     builder.Services.AddScoped<ICharacterService, CharacterService>();
+    builder.Services.AddScoped<ICharacterDAO, CharacterDAO>();
 }

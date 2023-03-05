@@ -11,5 +11,7 @@ namespace netcorewebapi.Services.CharacterService
         Task<ServiceResponse<GetCharacterResponseDto>> UpdateCharacter(UpdateCharacterRequestDto Character);
 
         Task<ServiceResponse<List<GetCharacterResponseDto>>> DeleteCharacterById(int id);
+
+        Task<ServiceResponse<List<GetCharacterResponseDto>>> GetTopStrengthCharacters(int count);
     }
 }

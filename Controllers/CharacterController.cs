@@ -41,7 +41,7 @@ namespace netcorewebapi.Controllers
                 return NotFound(response);
             }
             return Ok(response);
-        } 
+        }
 
         // Combine route in the same line
         [HttpGet("GetAllCharacters")] 
@@ -76,6 +76,18 @@ namespace netcorewebapi.Controllers
                 return NotFound(response);
             }
             return Ok(response);
+        }
+
+        [HttpGet("GetTopStrengthCharacters")]
+        public async Task<ActionResult<ServiceResponse<GetCharacterResponseDto>>> GetTopStrengthCharacters(int count)
+        {
+            var response = await _characterService.GetTopStrengthCharacters(count);
+            if (response.Data is null)
+            {
+                return NotFound(response);
+            }
+            return Ok(response);
+
         }
     }
 }
