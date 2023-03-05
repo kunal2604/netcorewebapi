@@ -1,14 +1,18 @@
+using netcorewebapi.Data.DAO.Interface;
+
 namespace netcorewebapi.Services.CharacterService
 {
     public class CharacterService : ICharacterService
     {
         private readonly IMapper _mapper;
         private readonly DataContext _context;
+        private readonly ICharacterDAO _characterDAO;
 
-        public CharacterService(IMapper mapper, DataContext context)
+        public CharacterService(IMapper mapper, DataContext context, ICharacterDAO characterDAO)
         {
             _mapper = mapper;
-            _context = context; 
+            _context = context;
+            _characterDAO = characterDAO;
         }
 
         public async Task<ServiceResponse<List<GetCharacterResponseDto>>> GetAllCharacters()
@@ -87,6 +91,14 @@ namespace netcorewebapi.Services.CharacterService
                 serviceResponse.Success = false;
                 serviceResponse.Message = ex.Message;
             }
+            return serviceResponse;
+        }
+
+        public async Task<ServiceResponse<List<GetCharacterResponseDto>>> GetTopStrengthCharacters(int count)
+        {
+            var serviceResponse = new ServiceResponse<List<GetCharacterResponseDto>>();
+            var dbCharacters = await _characterDAO.GetTopStrengthCharacters(count);
+            serviceResponse.Data = dbCharacters.Select(c => _mapper.Map<GetCharacterResponseDto>(c)).ToList();
             return serviceResponse;
         }
     }
