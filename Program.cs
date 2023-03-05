@@ -6,6 +6,9 @@ global using Microsoft.EntityFrameworkCore;
 global using netcorewebapi.Data;
 global using netcorewebapi.Data.DAO.Interface;
 global using netcorewebapi.Data.DAO;
+global using Microsoft.Data.SqlClient;
+global using System.Data;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
