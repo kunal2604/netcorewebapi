@@ -4,8 +4,11 @@ global using netcorewebapi.Dtos.Character;
 global using AutoMapper;
 global using Microsoft.EntityFrameworkCore;
 global using netcorewebapi.Data;
-using netcorewebapi.Data.DAO.Interface;
-using netcorewebapi.Data.DAO;
+global using netcorewebapi.Data.DAO.Interface;
+global using netcorewebapi.Data.DAO;
+global using Microsoft.Data.SqlClient;
+global using System.Data;
+
 
 var builder = WebApplication.CreateBuilder(args);
 

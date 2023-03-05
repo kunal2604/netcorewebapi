@@ -1,7 +1,3 @@
-﻿using Microsoft.Data.SqlClient;
-using netcorewebapi.Data.DAO.Interface;
-using System.Data;
-
 namespace netcorewebapi.Data.DAO
 {
     public class CharacterDAO : ICharacterDAO
