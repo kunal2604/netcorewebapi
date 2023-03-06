@@ -2,6 +2,7 @@ global using AutoMapper;
 global using Microsoft.AspNetCore.Mvc;
 global using Microsoft.Data.SqlClient;
 global using Microsoft.EntityFrameworkCore;
+global using netcorewebapi.Constants;
 global using netcorewebapi.Data;
 global using netcorewebapi.Data.DAO;
 global using netcorewebapi.Data.DAO.Interface;
@@ -10,7 +11,6 @@ global using netcorewebapi.Models;
 global using netcorewebapi.Services.CharacterService;
 global using Newtonsoft.Json.Linq;
 global using System.Data;
-
 
 var builder = WebApplication.CreateBuilder(args);
 
