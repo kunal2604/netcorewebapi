@@ -1,12 +1,14 @@
-global using netcorewebapi.Models;
-global using netcorewebapi.Services.CharacterService;
-global using netcorewebapi.Dtos.Character;
 global using AutoMapper;
+global using Microsoft.AspNetCore.Mvc;
+global using Microsoft.Data.SqlClient;
 global using Microsoft.EntityFrameworkCore;
 global using netcorewebapi.Data;
-global using netcorewebapi.Data.DAO.Interface;
 global using netcorewebapi.Data.DAO;
-global using Microsoft.Data.SqlClient;
+global using netcorewebapi.Data.DAO.Interface;
+global using netcorewebapi.Dtos.Character;
+global using netcorewebapi.Models;
+global using netcorewebapi.Services.CharacterService;
+global using Newtonsoft.Json.Linq;
 global using System.Data;
 
 
@@ -17,7 +19,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<DataContext>(options => 
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddNewtonsoftJson();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

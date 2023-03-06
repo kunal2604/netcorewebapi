@@ -1,5 +1,3 @@
-using netcorewebapi.Data.DAO.Interface;
-
 namespace netcorewebapi.Services.CharacterService
 {
     public class CharacterService : ICharacterService
@@ -32,6 +30,13 @@ namespace netcorewebapi.Services.CharacterService
             
             serviceResponse.Data = _mapper.Map<GetCharacterResponseDto>(dbCharacter);
             return serviceResponse;
+        }
+
+        public async Task<JObject> GetCharacterByIdObject(int id)
+        {
+            var dbCharacter = await _context.Characters.FirstOrDefaultAsync(c => c.Id == id);
+
+            return JObject.FromObject(dbCharacter);
         }
 
         public async Task<ServiceResponse<List<GetCharacterResponseDto>>> AddCharacter(AddCharacterRequestDto newCharacter)
@@ -99,6 +104,32 @@ namespace netcorewebapi.Services.CharacterService
             var serviceResponse = new ServiceResponse<List<GetCharacterResponseDto>>();
             var dbCharacters = await _characterDAO.GetTopStrengthCharacters(count);
             serviceResponse.Data = dbCharacters.Select(c => _mapper.Map<GetCharacterResponseDto>(c)).ToList();
+            return serviceResponse;
+        }
+
+        private async Task<JArray> GetCharacterAddressFromDatabase(int id)
+        {
+            return await _characterDAO.GetCharacterAddress(id);
+        }
+
+        public async Task<ServiceResponse<JArray>> GetCharacterAddress(int id)
+        {
+            JArray res = await GetCharacterAddressFromDatabase(id);
+            var serviceResponse = new ServiceResponse<JArray>();
+            serviceResponse.Data = res;
+            return serviceResponse;
+        }
+
+        public async Task<ServiceResponse<JObject>> GetCharacterDetails(int id)
+        {
+            var serviceResponse = new ServiceResponse<JObject>();
+            JObject character = await GetCharacterByIdObject(id);
+            JArray address = await GetCharacterAddressFromDatabase(id);
+
+            JObject userDetails = new JObject();
+            userDetails["Basic"] = character;
+            userDetails["Address"] = address;
+            serviceResponse.Data = userDetails;
             return serviceResponse;
         }
     }
