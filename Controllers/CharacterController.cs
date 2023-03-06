@@ -1,6 +1,3 @@
-using Microsoft.AspNetCore.Mvc;
-using netcorewebapi.Services.CharacterService;
-
 namespace netcorewebapi.Controllers
 {
     [ApiController]
@@ -88,6 +85,30 @@ namespace netcorewebapi.Controllers
             }
             return Ok(response);
 
+        }
+
+        [HttpGet("GetCharacterAddress")]
+        public async Task<ActionResult<ServiceResponse<JObject>>> GetCharacterAddress(int id)
+        {
+            var response = await _characterService.GetCharacterAddress(id);
+
+            if (response.Data is null)
+            {
+                return NotFound(response);
+            }
+            return Ok(response);
+        }
+
+        [HttpGet("GetCharacterDetails")]
+        public async Task<ActionResult<ServiceResponse<JObject>>> GetCharacterDetails(int id)
+        {
+            var response = await _characterService.GetCharacterDetails(id);
+
+            if (response.Data is null)
+            {
+                return NotFound(response);
+            }
+            return Ok(response);
         }
     }
 }
