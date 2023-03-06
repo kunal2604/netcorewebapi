@@ -20,7 +20,7 @@ namespace netcorewebapi.Data.DAO
             {
                 SqlCommand command = new SqlCommand()
                 {
-                    CommandText = "GetTopStrengthCharacters",
+                    CommandText = ProcedureConstants.GET_TOP_STRENGTH_CHARACTERS,
                     Connection = connection,
                     CommandType = CommandType.StoredProcedure
                 };
@@ -61,7 +61,7 @@ namespace netcorewebapi.Data.DAO
             {
                 SqlCommand command = new SqlCommand()
                 {
-                    CommandText = "GetCharacterAddress",
+                    CommandText = ProcedureConstants.GET_CHARACTER_ADDRESS,
                     Connection = connection,
                     CommandType = CommandType.StoredProcedure
                 };
